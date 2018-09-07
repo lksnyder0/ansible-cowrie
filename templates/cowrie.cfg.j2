@@ -17,10 +17,15 @@ ttylog_path = {{ cowrie_ttylog_path }}
 interactive_timeout = {{ cowrie_interactive_timeout }}
 authentication_timeout = {{ cowrie_authentication_timeout }}
 backend = {{ cowrie_backend }}
-{% if cowrie_config.honeypot is defined %}
-{% for key, value in cowrie_config.honeypot.items() %}
-{{ key }} = {{ value }}
-{% endfor %}
+{% if cowrie_auth_class == "UserDB" %}
+auth_class = UserDB
+{% elif cowrie_auth_class == "AuthRandom" %}
+auth_class == AuthRandom
+{% if cowrie_auth_class_parameters is defined %}
+auth_class_parameters = {{ cowrie_auth_class_parameters }}
+{% else %}
+auth_class_parameters = 2, 5, 10
+{% endif %}
 {% endif %}
 
 [shell]
@@ -57,4 +62,13 @@ forward_redirect_25 = {{ cowrie_forward_redirect_25 }}
 {% endif %}
 {% if cowrie_forward_redirect_587 is defined %}
 forward_redirect_587 = {{ cowrie_forward_redirect_587 }}
+{% endif %}
+
+{% if cowrie_extra_config is defined %}
+{% for name, section in cowrie_extra_config.items() %}
+[{{ name }}]
+{% for key, value in section.items() %}
+{{ key }} = {{ value }}
+{% endfor %}
+{% endfor %}
 {% endif %}

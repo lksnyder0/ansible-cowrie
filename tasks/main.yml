@@ -26,6 +26,7 @@
     repo: "{{ cowrie_repo }}"
     dest: "{{ cowrie_dir }}"
     version: "{{ cowrie_version }}"
+    force: yes
 - name: Create virtual environment and install requirements
   pip:
     requirements: "{{ cowrie_dir }}/requirements.txt"
@@ -36,9 +37,17 @@
     src: "cowrie.cfg.j2"
     dest: "{{ cowrie_dir }}/etc/cowrie.cfg"
   notify: "Restart cowrie"
+- name: Install AuthDB File
+  copy:
+    src: "{{ cowrie_userdb_location }}"
+    dest: "{{ cowrie_dir }}/data/userdb.txt"
+    group: "{{ cowrie_group }}"
+    owner: "{{ cowrie_user }}"
+  when: cowrie_auth_class == "UserDB"
+  notify: "Restart cowrie"
 - name: Ensure tty folder exists
   file:
-    dest: " {{ cowrie_dir}}/var/lib/cowrie/tty/"
+    dest: " {{ cowrie_dir }}/var/lib/cowrie/tty/"
     state: directory
 - name: Ensure permissions are correct
   file:

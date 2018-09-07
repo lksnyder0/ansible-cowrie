@@ -20,6 +20,7 @@ cowrie_ttylog: "true"
 cowrie_ttylog_path: "${honeypot:state_path}/tty"
 cowrie_interactive_timeout: "180"
 cowrie_authentication_timeout: "120"
+cowrie_auth_class: "UserDB"
 cowrie_backend: "shell"
 cowrie_filesystem: "${honeypot:share_path}/fs.pickle"
 cowrie_processes: "share/cowrie/cmdoutput.json"
@@ -39,3 +40,4 @@ cowrie_ssh_listen_endpoints: "tcp:{{ cowrie_port_priv }}:interface=0.0.0.0"
 cowrie_sftp_enabled: true
 cowrie_ssh_forwarding: true
 cowrie_forward_redirect: false
+cowrie_userdb_location: "userdb.txt"
