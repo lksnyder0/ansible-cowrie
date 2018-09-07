@@ -1,2 +1,41 @@
 ---
 # defaults file for ragriz.cowrie
+cowrie_user: cowrie
+cowrie_group: "{{ cowrie_user }}"
+cowrie_repo: "http://github.com/micheloosterhof/cowrie"
+cowrie_dir: "/home/{{ cowrie_user }}/cowrie"
+cowrie_version: "1.4.1"
+cowrie_port_pub: 22
+cowrie_port_priv: 2222
+cowrie_hostname: srv02
+cowrie_log_path: "var/log/cowrie"
+cowrie_download_path: "${honeypot:state_path}/downloads"
+cowrie_data_path: "data"
+cowrie_share_path: "share/cowrie"
+cowrie_state_path: "var/lib/cowrie"
+cowrie_etc_path: "etc"
+cowrie_contents_path: "honeyfs"
+cowrie_txtcmds_path: "txtcmds"
+cowrie_ttylog: "true"
+cowrie_ttylog_path: "${honeypot:state_path}/tty"
+cowrie_interactive_timeout: "180"
+cowrie_authentication_timeout: "120"
+cowrie_backend: "shell"
+cowrie_filesystem: "${honeypot:share_path}/fs.pickle"
+cowrie_processes: "share/cowrie/cmdoutput.json"
+cowrie_arch: "linux-x64-lsb"
+cowrie_kernel_version: "3.2.0-4-amd64"
+cowrie_kernel_build_string: "#1 SMP Debian 3.2.68-1+deb7u1"
+cowrie_hardware_platform: "x86_64"
+cowrie_operating_system: "GNU/Linux"
+cowrie_ssh_enabled: true
+cowrie_rsa_public_key: "${honeypot:state_path}/ssh_host_rsa_key.pub"
+cowrie_rsa_private_key: "${honeypot:state_path}/ssh_host_rsa_key"
+cowrie_dsa_public_key: "${honeypot:state_path}/ssh_host_dsa_key.pub"
+cowrie_dsa_private_key: "${honeypot:state_path}/ssh_host_dsa_key"
+cowrie_ssh_version_string: "SSH-2.0-OpenSSH_6.0p1 Debian-4+deb7u2"
+# See https://twistedmatrix.com/documents/current/core/howto/endpoints.html#servers
+cowrie_ssh_listen_endpoints: "tcp:{{ cowrie_port_priv }}:interface=0.0.0.0"
+cowrie_sftp_enabled: true
+cowrie_ssh_forwarding: true
+cowrie_forward_redirect: false

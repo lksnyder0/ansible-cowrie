@@ -1,2 +1,58 @@
 ---
-# tasks file for ragriz.cowrie
+- name: Install required packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - git
+    - python-virtualenv
+    - libssl-dev
+    - libffi-dev
+    - build-essential
+    - libpython-dev
+    - python2.7-minimal
+    - authbind
+- name: Create group
+  group:
+    name: "{{ cowrie_group }}"
+    state: present
+- name: Create user account
+  user:
+    name: "{{ cowrie_user }}"
+    group: "{{ cowrie_group }}"
+    shell: "/bin/bash"
+- name: Get code
+  git:
+    repo: "{{ cowrie_repo }}"
+    dest: "{{ cowrie_dir }}"
+    version: "{{ cowrie_version }}"
+- name: Create virtual environment and install requirements
+  pip:
+    requirements: "{{ cowrie_dir }}/requirements.txt"
+    virtualenv: "{{ cowrie_dir }}/cowrie-env"
+    virtualenv_python: "python2.7"
+- name: Install configuration
+  template:
+    src: "cowrie.cfg.j2"
+    dest: "{{ cowrie_dir }}/etc/cowrie.cfg"
+- name: Ensure tty folder exists
+  file:
+    dest: " {{ cowrie_dir}}/var/lib/cowrie/tty/"
+    state: directory
+- name: Ensure permissions are correct
+  file:
+    dest: "{{ cowrie_dir }}"
+    owner: "{{ cowrie_user }}"
+    mode: "u=rwX,g=rX,o=rX"
+    recurse: yes
+- name: Redirect port
+  iptables:
+    table: "nat"
+    chain: "PREROUTING"
+    protocol: "tcp"
+    match: "tcp"
+    destination_port: "{{ cowrie_port_pub }}"
+    jump: "REDIRECT"
+    to_ports: "{{ cowrie_port_priv }}"
+    comment: "Redirect cowrie traffic from {{ cowrie_port_pub }} to {{ cowrie_port_priv }}"
+  become: yes

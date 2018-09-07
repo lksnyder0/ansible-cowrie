@@ -1,0 +1,60 @@
+# ============================================================================
+# General Cowrie Options
+# ============================================================================
+[honeypot]
+
+hostname = {{ cowrie_hostname }}
+log_path = {{ cowrie_log_path }}
+download_path = {{ cowrie_download_path }}
+data_path = {{ cowrie_data_path }}
+share_path = {{ cowrie_share_path }}
+state_path = {{ cowrie_state_path }}
+etc_path = {{ cowrie_etc_path }}
+contents_path = {{ cowrie_contents_path }}
+txtcmds_path = {{ cowrie_txtcmds_path }}
+ttylog = {{ cowrie_ttylog }}
+ttylog_path = {{ cowrie_ttylog_path }}
+interactive_timeout = {{ cowrie_interactive_timeout }}
+authentication_timeout = {{ cowrie_authentication_timeout }}
+backend = {{ cowrie_backend }}
+{% if cowrie_config.honeypot is defined %}
+{% for key, value in cowrie_config.honeypot.items() %}
+{{ key }} = {{ value }}
+{% endfor %}
+{% endif %}
+
+[shell]
+filesystem = {{ cowrie_filesystem }}
+processes = {{ cowrie_processes }}
+arch = {{ cowrie_arch }}
+# Modify the response of '/bin/uname'
+# Default (uname -a): Linux <hostname> <kernel_version> <kernel_build_string> <hardware_platform> <operating system>
+kernel_version = {{ cowrie_kernel_version }}
+kernel_build_string = {{ cowrie_kernel_build_string }}
+hardware_platform = {{ cowrie_hardware_platform }}
+operating_system = {{ cowrie_operating_system }}
+
+[ssh]
+
+enabled = {{ cowrie_ssh_enabled }}
+rsa_public_key = {{ cowrie_rsa_public_key }}
+rsa_private_key = {{ cowrie_rsa_private_key }}
+dsa_public_key = {{ cowrie_dsa_public_key }}
+dsa_private_key = {{ cowrie_dsa_private_key }}
+version = {{ cowrie_ssh_version_string }}
+listen_endpoints = {{ cowrie_ssh_listen_endpoints }}
+sftp_enabled = {{ cowrie_sftp_enabled }}
+forwarding = {{ cowrie_ssh_forwarding }}
+forward_redirect = {{ cowrie_forward_redirect }}
+{% if cowrie_forward_redirect_80 is defined %}
+forward_redirect_80 = {{ cowrie_forward_redirect_80 }}
+{% endif %}
+{% if cowrie_forward_redirect_443 is defined %}
+forward_redirect_443 = {{ cowrie_forward_redirect_443}}
+{% endif %}
+{% if cowrie_forward_redirect_25 is defined %}
+forward_redirect_25 = {{ cowrie_forward_redirect_25 }}
+{% endif %}
+{% if cowrie_forward_redirect_587 is defined %}
+forward_redirect_587 = {{ cowrie_forward_redirect_587 }}
+{% endif %}
