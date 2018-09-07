@@ -1,2 +1,7 @@
 ---
-# handlers file for ragriz.cowrie
+- name: Restart cowrie
+  shell: "bin/cowrie restart"
+  args:
+    chdir: "{{ cowrie_dir }}"
+  become: yes
+  become_user: "{{ cowrie_user }}"

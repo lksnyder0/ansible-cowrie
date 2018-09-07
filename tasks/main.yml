@@ -35,6 +35,7 @@
   template:
     src: "cowrie.cfg.j2"
     dest: "{{ cowrie_dir }}/etc/cowrie.cfg"
+  notify: "Restart cowrie"
 - name: Ensure tty folder exists
   file:
     dest: " {{ cowrie_dir}}/var/lib/cowrie/tty/"
@@ -56,3 +57,15 @@
     to_ports: "{{ cowrie_port_priv }}"
     comment: "Redirect cowrie traffic from {{ cowrie_port_pub }} to {{ cowrie_port_priv }}"
   become: yes
+- name: Test if cowrie is running
+  shell: "bin/cowrie status"
+  args:
+    chdir: "{{ cowrie_dir }}"
+  register: cowrie_status
+- name: Start cowrie
+  shell: "bin/cowrie start"
+  args:
+    chdir: "{{ cowrie_dir }}"
+  when: '"cowrie is running" not in cowrie_status.stdout'
+  become: yes
+  become_user: "{{ cowrie_user }}"
