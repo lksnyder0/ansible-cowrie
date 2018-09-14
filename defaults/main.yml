@@ -9,7 +9,7 @@ cowrie_port_pub: 22
 cowrie_port_priv: 2222
 cowrie_hostname: srv02
 cowrie_log_path: "var/log/cowrie"
-cowrie_download_path: "${honeypot:state_path}/downloads"
+cowrie_download_path: "dl"
 cowrie_data_path: "data"
 cowrie_share_path: "share/cowrie"
 cowrie_state_path: "var/lib/cowrie"
@@ -17,7 +17,7 @@ cowrie_etc_path: "etc"
 cowrie_contents_path: "honeyfs"
 cowrie_txtcmds_path: "txtcmds"
 cowrie_ttylog: "true"
-cowrie_ttylog_path: "${honeypot:state_path}/tty"
+cowrie_ttylog_path: "${honeypot:log_path}/tty"
 cowrie_interactive_timeout: "180"
 cowrie_authentication_timeout: "120"
 cowrie_auth_class: "UserDB"
@@ -38,6 +38,6 @@ cowrie_ssh_version_string: "SSH-2.0-OpenSSH_6.0p1 Debian-4+deb7u2"
 # See https://twistedmatrix.com/documents/current/core/howto/endpoints.html#servers
 cowrie_ssh_listen_endpoints: "tcp:{{ cowrie_port_priv }}:interface=0.0.0.0"
 cowrie_sftp_enabled: true
-cowrie_ssh_forwarding: true
+cowrie_ssh_forwarding: false
 cowrie_forward_redirect: false
 cowrie_userdb_location: "userdb.txt"
