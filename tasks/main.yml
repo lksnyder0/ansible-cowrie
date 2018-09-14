@@ -54,7 +54,7 @@
   notify: "Restart cowrie"
 - name: Ensure tty folder exists
   file:
-    dest: " {{ cowrie_dir }}/var/lib/cowrie/tty/"
+    dest: "{{ cowrie_dir }}/{{ cowrie_ttylog_path}}"
     state: directory
 - name: Ensure permissions are correct
   file:
