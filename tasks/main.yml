@@ -32,6 +32,13 @@
     requirements: "{{ cowrie_dir }}/requirements.txt"
     virtualenv: "{{ cowrie_dir }}/cowrie-env"
     virtualenv_python: "python2.7"
+- name: Install extra python packages
+  pip:
+    virtualenv: "{{ cowrie_dir }}/cowrie-env"
+    virtualenv_python: "python2.7"
+    name: "{{ item }}"
+  with_items:
+    - botocore
 - name: Install configuration
   template:
     src: "cowrie.cfg.j2"
