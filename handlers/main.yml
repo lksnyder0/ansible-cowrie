@@ -1,7 +1,16 @@
 ---
-- name: Restart cowrie
+- name: Nativaly restart cowrie
   shell: "bin/cowrie restart"
   args:
     chdir: "{{ cowrie_dir }}"
   become: yes
   become_user: "{{ cowrie_user }}"
+  when: cowrie_manager == "native"
+  listen: "Restart cowrie"
+- name: Systemd restart Cowrie
+  systemd:
+    name: cowrie
+    daemon_reload: yes
+    state: restarted
+  when: cowrie_manager == "systemd"
+  listen: "Restart cowrie"

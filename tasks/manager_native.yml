@@ -1,0 +1,13 @@
+---
+- name: Test if cowrie is running
+  shell: "bin/cowrie status"
+  args:
+    chdir: "{{ cowrie_dir }}"
+  register: cowrie_status
+- name: Start cowrie
+  shell: "bin/cowrie start"
+  args:
+    chdir: "{{ cowrie_dir }}"
+  when: '"cowrie is running" not in cowrie_status.stdout'
+  become: yes
+  become_user: "{{ cowrie_user }}"
