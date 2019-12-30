@@ -57,7 +57,7 @@
 - name: Install configuration
   template:
     src: "cowrie.cfg.j2"
-    dest: "{{ cowrie_etc_path }}/cowrie.cfg"
+    dest: "{{ cowrie_dir }}/{{ cowrie_etc_path }}/cowrie.cfg"
     group: "{{ cowrie_group }}"
     owner: "{{ cowrie_user }}"
   notify: "Restart cowrie"
@@ -65,7 +65,7 @@
 - name: Install AuthDB File
   copy:
     src: "{{ cowrie_userdb_location }}"
-    dest: "{{ cowrie_etc_path }}/userdb.txt"
+    dest: "{{ cowrie_dir }}/{{ cowrie_etc_path }}/userdb.txt"
     group: "{{ cowrie_group }}"
     owner: "{{ cowrie_user }}"
   when: cowrie_auth_class == "UserDB"
@@ -75,6 +75,7 @@
   file:
     dest: "{{ cowrie_dir }}"
     owner: "{{ cowrie_user }}"
+    group: "{{ cowrie_group }}"
     mode: "u=rwX,g=rX,o=rX"
     recurse: yes
 
