@@ -12,6 +12,7 @@
       - authbind
       - virtualenv
     state: present
+    update_cache: true
 
 - name: Create group
   group:
