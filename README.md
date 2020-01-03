@@ -1,6 +1,8 @@
 Role Name
 =========
 
+**warning**: this is half-baked
+
 This role will install the Cowrie medium interaction honeypot on any Debian based system. By default the cowrie process will listen on port 2222. IPTables is then used to rewrite any requests coming to port 22 to port 2222. 
 
 Requirements
