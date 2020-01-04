@@ -1,7 +1,7 @@
 galaxy_info:
   role_name: cowrie
   author: Luke Snyder
-  description: Security engineer by day. Developer by night.
+  description: Install, configure, and run the Cowrie medium interaction ssh honeypot
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
