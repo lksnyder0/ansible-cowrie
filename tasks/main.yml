@@ -96,11 +96,6 @@
   include: manager_native.yml
   when: cowrie_manager == "native"
 
-- name: Create systemd configuration
-  template:
-    src: cowrie.service.j2
-    dest: /etc/systemd/system/cowrie.service
-    group: "{{ cowrie_group }}"
-    owner: "{{ cowrie_user }}"
-  notify: "Restart cowrie"
+- name: Use systemd manager
+  include: manager_systemd.yml
   when: cowrie_manager == "systemd"

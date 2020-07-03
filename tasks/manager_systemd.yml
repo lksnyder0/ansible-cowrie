@@ -1,0 +1,15 @@
+---
+- name: Create systemd configuration
+  template:
+    src: cowrie.service.j2
+    dest: /etc/systemd/system/cowrie.service
+    group: "{{ cowrie_group }}"
+    owner: "{{ cowrie_user }}"
+  notify: "Restart cowrie"
+
+- name: Enable systemd service
+  systemd:
+    name: cowrie
+    daemon_reload: yes
+    enabled: yes
+  notify: Restart cowrie
